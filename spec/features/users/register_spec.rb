@@ -37,7 +37,7 @@ RSpec.describe "the User registration page" do
 
       expect(current_path).to eq(register_path)
       within '#flash-messages' do 
-        expect(page).to have_content("Error: Email can't be blank, Password can't be blank, Password confirmation doesn't match Password")
+        expect(page).to have_content("Error: Email can't be blank, Password can't be blank")
       end
 
       fill_in(:email, with: 'amanda@turing.edu')

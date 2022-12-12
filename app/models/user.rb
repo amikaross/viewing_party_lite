@@ -5,9 +5,9 @@ class User < ApplicationRecord
   validates_presence_of :name 
   validates_presence_of :email 
   validates_uniqueness_of :email 
-  validates :password, presence: true, confirmation: true 
-  validates :password_confirmation, presence: true 
-
+  # validates :password, presence: true, confirmation: true, on: :create
+  # validates :password_confirmation, presence: true , on: :create
+  # validates :password, presence: true
   has_secure_password
 
   def users_parties
