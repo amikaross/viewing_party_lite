@@ -12,10 +12,14 @@ RSpec.describe "the User registration page" do
       expect(current_path).to eq(register_path)
       expect(page).to have_field(:name)
       expect(page).to have_field(:email)
+      expect(page).to have_field(:password)
+      expect(page).to have_field(:password_confirmation)
       expect(page).to have_button('Create New User')
 
       fill_in(:name, with: 'Amanda')
       fill_in(:email, with: 'amanda@turing.edu')
+      fill_in(:password, with: 'test1234')
+      fill_in(:password_confirmation, with: 'test1234')
       click_button('Create New User')
 
       last_created = User.last
@@ -33,7 +37,7 @@ RSpec.describe "the User registration page" do
 
       expect(current_path).to eq(register_path)
       within '#flash-messages' do 
-        expect(page).to have_content("Error: Email can't be blank")
+        expect(page).to have_content("Error: Email can't be blank, Password can't be blank, Password confirmation doesn't match Password")
       end
 
       fill_in(:email, with: 'amanda@turing.edu')
@@ -46,7 +50,7 @@ RSpec.describe "the User registration page" do
     end
 
     it "doesn't allow you to register a non-unique email address" do 
-      User.create!(name: "Mandy", email: "amanda@turing.edu")
+      User.create!(name: "Mandy", email: "amanda@turing.edu", password: "12345", password_confirmation: "12345")
       visit register_path
       fill_in(:name, with: 'Amanda')
       fill_in(:email, with: 'amanda@turing.edu')
@@ -55,6 +59,20 @@ RSpec.describe "the User registration page" do
       expect(current_path).to eq(register_path)
       within '#flash-messages' do 
         expect(page).to have_content("Error: Email has already been taken")
+      end
+    end
+
+    it "doesn't allow to have unmatching password / password_confirmation fields" do 
+      visit register_path
+      fill_in(:name, with: 'Amanda')
+      fill_in(:email, with: 'amanda@turing.edu')
+      fill_in(:password, with: 'test1234')
+      fill_in(:password_confirmation, with: 'test1')
+      click_button('Create New User')
+
+      expect(current_path).to eq(register_path)
+      within '#flash-messages' do 
+        expect(page).to have_content("Error: Password confirmation doesn't match Password")
       end
     end
   end
