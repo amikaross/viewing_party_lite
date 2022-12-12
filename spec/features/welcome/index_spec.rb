@@ -14,6 +14,12 @@ RSpec.describe 'landing page', type: :feature do
       expect(page).to have_button('Create A New User')
     end
 
+    it "has a button to log in" do 
+      visit "/"
+
+      expect(page).to have_link("Log In", href: "/login")
+    end
+
     it 'has a list of existing users which links to their dashboard' do
       user1 = User.create!(name: 'Amanda', email: 'amanda@turing.edu', password: "12345", password_confirmation: "12345")
       user2 = User.create!(name: 'James', email: 'james@turing.edu', password: "12345", password_confirmation: "12345")
