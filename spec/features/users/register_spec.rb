@@ -24,7 +24,7 @@ RSpec.describe "the User registration page" do
 
       last_created = User.last
       expect(current_path).to eq(user_path(last_created))
-
+      expect(last_created.password_digest).to_not eq("test1234")
       visit '/'
       
       expect(page).to have_content('amanda@turing.edu')
