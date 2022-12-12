@@ -17,6 +17,20 @@ class UsersController < ApplicationController
     @viewing_parties = @user.users_parties
   end
 
+  def login_form
+  end
+
+  def login_user
+    user = User.find_by(email: params[:email])
+    if user.authenticate(params[:password])
+      session[:user_id] = user.id
+      redirect_to user_path(user)
+    else
+      flash[:alert] = "Error: Incorrect credentials"
+      render :login_form
+    end
+  end
+
   private
   def app_params 
     params.permit(:name, :email, :password, :password_confirmation)
