@@ -65,19 +65,14 @@ RSpec.describe "the User registration page" do
     it "doesn't allow to have unmatching password / password_confirmation fields" do 
       visit register_path
       fill_in(:name, with: 'Amanda')
-      click_button('Create New User')
-
-      expect(current_path).to eq(register_path)
-      within '#flash-messages' do 
-        expect(page).to have_content("Error: Email can't be blank")
-      end
-
       fill_in(:email, with: 'amanda@turing.edu')
+      fill_in(:password, with: 'test1234')
+      fill_in(:password_confirmation, with: 'test1')
       click_button('Create New User')
 
       expect(current_path).to eq(register_path)
       within '#flash-messages' do 
-        expect(page).to have_content("Error: Name can't be blank")
+        expect(page).to have_content("Error: Password confirmation doesn't match Password")
       end
     end
   end
