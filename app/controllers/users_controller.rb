@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   def create 
     user = User.new(app_params)
     if user.save
+      session[:user_id] = user.id
       redirect_to user_path(user)
     else 
       flash[:alert] = "Error: #{error_message(user.errors)}"
@@ -13,8 +14,13 @@ class UsersController < ApplicationController
   end
 
   def show 
-    @user = User.find(params[:id])
-    @viewing_parties = @user.users_parties
+    if session[:user_id]
+      @user = User.find(params[:id])
+      @viewing_parties = @user.users_parties
+    else
+      flash[:alert] = "You do not have permission to access that page"
+      redirect_to "/"
+    end
   end
 
   def login_form
@@ -29,6 +35,11 @@ class UsersController < ApplicationController
       flash[:alert] = "Error: Incorrect credentials"
       render :login_form
     end
+  end
+
+  def logout_user
+    reset_session
+    redirect_to "/"
   end
 
   private
