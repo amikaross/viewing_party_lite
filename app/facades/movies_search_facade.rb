@@ -1,8 +1,7 @@
 class MoviesSearchFacade
   attr_reader :user_id, :query_params 
 
-  def initialize(user_id, query_params)
-    @user_id = user_id
+  def initialize(query_params)
     @query_params = query_params
   end
 
@@ -20,9 +19,5 @@ class MoviesSearchFacade
     service.movies_keyword(@query_params)[:results].map do |data|
       Movie.new(data)
     end
-  end
-
-  def user
-    User.find(@user_id)
   end
 end

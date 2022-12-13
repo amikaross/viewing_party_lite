@@ -1,22 +1,51 @@
 require 'rails_helper'
 
 RSpec.describe 'The movie show page' do 
-  describe 'As a user when I visit the movie details page (users/:id/movies/:movie_id where :id is a valid user id' do 
+  describe "As a visitor" do 
+    describe "If I visit the movies show page and click the link for Create Viewing Party" do
+      it "redirects me back to the show page, with an alert that I must be logged in", :vcr do         
+        visit movie_path(128)
+  
+        click_button('Create Viewing Party For Princess Mononoke')
+        
+        expect(current_path).to eq(movie_path(128))
+        within "#flash-messages" do 
+          expect(page).to have_content("You must register or log in to create a viewing party")
+        end
+      end
+    end
+  end
+
+  describe 'As a logged in user when I visit a movie show page' do 
     it 'displays a button to create a viewing party and a button to return to discover', :vcr do 
       user = User.create!(name: "Amanda", email: "amanda@turing.edu", password: "12345", password_confirmation: "12345")
-      visit user_movie_path(user, 128)
+      
+      visit '/login'
+
+      fill_in(:email, with: 'amanda@turing.edu')
+      fill_in(:password, with: '12345')
+      click_button("Submit")
+
+      visit movie_path(128)
 
       expect(page).to have_button('Create Viewing Party For Princess Mononoke')
       expect(page).to have_button('Discover Page')
 
       click_button('Discover Page')
       
-      expect(current_path).to eq("/users/#{user.id}/discover")
+      expect(current_path).to eq("/discover")
     end
 
     it 'displays the movie details: title, vote average, runtime, genre(s), summary', :vcr do 
       user = User.create!(name: "Amanda", email: "amanda@turing.edu", password: "12345", password_confirmation: "12345")
-      visit user_movie_path(user, 128)
+      
+      visit '/login'
+
+      fill_in(:email, with: 'amanda@turing.edu')
+      fill_in(:password, with: '12345')
+      click_button("Submit")
+
+      visit movie_path(128)
 
       expect(page).to have_content("Princess Mononoke")
       expect(page).to have_content("Vote: 8.346")
@@ -28,7 +57,14 @@ RSpec.describe 'The movie show page' do
 
     it 'displays the first 10 cast members', :vcr do 
       user = User.create!(name: "Amanda", email: "amanda@turing.edu", password: "12345", password_confirmation: "12345")
-      visit user_movie_path(user, 128)
+      
+      visit '/login'
+
+      fill_in(:email, with: 'amanda@turing.edu')
+      fill_in(:password, with: '12345')
+      click_button("Submit")
+
+      visit movie_path(128)
 
       expect(page).to have_content("Ashitaka (voice): Youji Matsuda")
       expect(page).to have_content("San (voice): Yuriko Ishida")
@@ -44,7 +80,14 @@ RSpec.describe 'The movie show page' do
 
     it 'displays count of total reviews and all the authors and their information', :vcr do 
       user = User.create!(name: "Amanda", email: "amanda@turing.edu", password: "12345", password_confirmation: "12345")
-      visit user_movie_path(user, 128)
+      
+      visit '/login'
+
+      fill_in(:email, with: 'amanda@turing.edu')
+      fill_in(:password, with: '12345')
+      click_button("Submit")
+
+      visit movie_path(128)
 
       expect(page).to have_content("2 Reviews:")
       expect(page).to have_content("Andres Gomez")

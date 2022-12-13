@@ -34,7 +34,7 @@
 <% end %>
 <div class='row' id='movies'>
 <% movies.each do |movie|%>
-  <div class='column'><%= link_to movie.title, user_movie_path(@facade.user, movie.id), method: :get%></div>
+  <div class='column'><%= link_to movie.title, movie_path(movie.id), method: :get%></div>
   <div class='column'>Vote Average:<%= movie.vote %><br></div>
 <% end %>
 </div>
