@@ -16,8 +16,8 @@ div.main_text {
 
 <center>
   <h2><%= @facade.movie.title %></h2>
-  <%= button_to "Discover Page", "/users/#{@facade.user_id}/discover", method: :get %><br>
-  <%= button_to "Create Viewing Party For #{@facade.movie.title}", new_user_movie_viewing_party_path(@facade.user, @facade.id), method: :get %>
+  <%= button_to "Discover Page", "/discover", method: :get %><br>
+  <%= button_to "Create Viewing Party For #{@facade.movie.title}", new_movie_viewing_party_path(@facade.id), method: :get %>
 </center>
 <br><br>
 

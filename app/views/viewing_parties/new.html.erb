@@ -14,7 +14,7 @@
 </center>
 <br>
 <div class='flex-container'>
-  <%= form_with url: "/users/#{@facade.user_id}/movies/#{@facade.id}/viewing_parties", method: :post, local: true do |form| %>
+  <%= form_with url: "/movies/#{@facade.id}/viewing_parties", method: :post, local: true do |form| %>
     <%= form.label :movie_title %>
     <%= form.text_field :movie_title, value: @facade.movie.title, :readonly => true %><br><br>
     <%= form.hidden_field :run_time, value: @facade.movie.runtime %>

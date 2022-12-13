@@ -11,11 +11,11 @@ RSpec.describe 'New viewing party page' do
       fill_in(:password, with: '12345')
       click_button("Submit")
       
-      visit user_movie_path(user, 128)
+      visit movie_path(128)
 
       click_button('Create Viewing Party For Princess Mononoke')
 
-      expect(current_path).to eq("/users/#{user.id}/movies/128/viewing_parties/new")
+      expect(current_path).to eq("/movies/128/viewing_parties/new")
     end
   end
 
@@ -28,7 +28,7 @@ RSpec.describe 'New viewing party page' do
     fill_in(:password, with: '12345')
     click_button("Submit")
 
-    visit user_movie_path(user, 128)
+    visit movie_path(128)
 
     click_button('Create Viewing Party For Princess Mononoke')
 
@@ -46,7 +46,7 @@ RSpec.describe 'New viewing party page' do
     fill_in(:password, with: '12345')
     click_button("Submit")
 
-    visit "/users/#{user.id}/movies/128/viewing_parties/new"
+    visit "/movies/128/viewing_parties/new"
 
     expect(page).to have_field('movie_title', with: 'Princess Mononoke')
     expect(page).to have_field('duration', with: 134)
@@ -67,7 +67,7 @@ RSpec.describe 'New viewing party page' do
     fill_in(:password, with: '12345')
     click_button("Submit")
 
-    visit "/users/#{user.id}/movies/128/viewing_parties/new"
+    visit "/movies/128/viewing_parties/new"
 
     fill_in('duration', with: 150)
     fill_in('date', with: '2022/12/01')
@@ -81,7 +81,7 @@ RSpec.describe 'New viewing party page' do
     party = ViewingParty.last
 
     within "#viewing-party-#{party.id}" do
-      expect(page).to have_link('Princess Mononoke', href: user_movie_path(user, party.movie_id))
+      expect(page).to have_link('Princess Mononoke', href: movie_path(party.movie_id))
       expect(page).to have_content('December 01, 2022')
       expect(page).to have_content('7:00 PM')
       expect(page).to have_content('Hosting')
@@ -102,7 +102,7 @@ RSpec.describe 'New viewing party page' do
     fill_in(:password, with: '12345')
     click_button("Submit")
 
-    visit "/users/#{user.id}/movies/128/viewing_parties/new"
+    visit "/movies/128/viewing_parties/new"
 
     fill_in('duration', with: '')
     fill_in('date', with: '2022/12/01')
@@ -111,7 +111,7 @@ RSpec.describe 'New viewing party page' do
     check("invitees_#{user3.id}")
     click_button('Create Party')
 
-    expect(current_path).to eq("/users/#{user.id}/movies/128/viewing_parties/new")
+    expect(current_path).to eq("/movies/128/viewing_parties/new")
     within '#flash-messages' do
       expect(page).to have_content("Error: Duration can't be blank")
     end
@@ -128,11 +128,11 @@ RSpec.describe 'New viewing party page' do
     fill_in(:password, with: '12345')
     click_button("Submit")
 
-    visit "/users/#{user.id}/movies/128/viewing_parties/new"
+    visit "/movies/128/viewing_parties/new"
 
     click_button('Create Party')
 
-    expect(current_path).to eq("/users/#{user.id}/movies/128/viewing_parties/new")
+    expect(current_path).to eq("/movies/128/viewing_parties/new")
     within '#flash-messages' do
       expect(page).to have_content("Error: Date can't be blank, Start time can't be blank")
     end
@@ -149,7 +149,7 @@ RSpec.describe 'New viewing party page' do
     fill_in(:password, with: '12345')
     click_button("Submit")
 
-    visit "/users/#{user.id}/movies/128/viewing_parties/new"
+    visit "/movies/128/viewing_parties/new"
 
     fill_in('duration', with: 'AA')
     fill_in('date', with: '2022/12/01')
@@ -158,7 +158,7 @@ RSpec.describe 'New viewing party page' do
     check("invitees_#{user3.id}")
     click_button('Create Party')
 
-    expect(current_path).to eq("/users/#{user.id}/movies/128/viewing_parties/new")
+    expect(current_path).to eq("/movies/128/viewing_parties/new")
     within '#flash-messages' do
       expect(page).to have_content('Error: Duration is not a number')
     end
@@ -175,7 +175,7 @@ RSpec.describe 'New viewing party page' do
     fill_in(:password, with: '12345')
     click_button("Submit")
 
-    visit "/users/#{user.id}/movies/128/viewing_parties/new"
+    visit "/movies/128/viewing_parties/new"
 
     fill_in('duration', with: '50')
     fill_in('date', with: '2022/12/01')
@@ -184,7 +184,7 @@ RSpec.describe 'New viewing party page' do
     check("invitees_#{user3.id}")
     click_button('Create Party')
 
-    expect(current_path).to eq("/users/#{user.id}/movies/128/viewing_parties/new")
+    expect(current_path).to eq("/movies/128/viewing_parties/new")
     within '#flash-messages' do
       expect(page).to have_content("Error: Duration must be greater than or equal to 134")
     end

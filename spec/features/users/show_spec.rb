@@ -46,7 +46,7 @@ RSpec.describe "the User Show page aka the user's dashboard" do
         expect(page).to have_button("Discover Movies")
 
         within "#viewing-party-#{party_1.id}" do 
-          expect(page).to have_link("Spirited Away", href: user_movie_path(user, party_1.movie_id))
+          expect(page).to have_link("Spirited Away", href: movie_path(party_1.movie_id))
           expect(page).to have_content("December 12, 2022")
           expect(page).to have_content("5:00 PM")
           expect(page).to have_content("Hosting")
@@ -57,7 +57,7 @@ RSpec.describe "the User Show page aka the user's dashboard" do
         end
 
         within "#viewing-party-#{party_2.id}" do 
-          expect(page).to have_link("Pulp Fiction", href: user_movie_path(user, party_2.movie_id))
+          expect(page).to have_link("Pulp Fiction", href: movie_path(party_2.movie_id))
           expect(page).to have_content("December 13, 2022")
           expect(page).to have_content("7:00 PM")
           expect(page).to have_content("Invited")
@@ -70,7 +70,7 @@ RSpec.describe "the User Show page aka the user's dashboard" do
 
         click_button("Discover Movies")
         
-        expect(current_path).to eq("/users/#{user.id}/discover")
+        expect(current_path).to eq("/discover")
       end
     end
   end
