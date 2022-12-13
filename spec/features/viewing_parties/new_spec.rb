@@ -76,7 +76,7 @@ RSpec.describe 'New viewing party page' do
     check("invitees_#{user3.id}")
     click_button('Create Party')
 
-    expect(current_path).to eq(user_path(user))
+    expect(current_path).to eq("/dashboard")
 
     party = ViewingParty.last
 

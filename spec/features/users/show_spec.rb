@@ -6,7 +6,7 @@ RSpec.describe "the User Show page aka the user's dashboard" do
       it "redirects me to the landing page and displays an alert" do 
         user = User.create!(name: 'Amanda', email: 'amanda@turing.edu', password: "12345", password_confirmation: "12345")
 
-        visit user_path(user)
+        visit "/dashboard"
 
         expect(current_path).to eq("/")
         within "#flash-messages" do 
@@ -40,7 +40,7 @@ RSpec.describe "the User Show page aka the user's dashboard" do
         fill_in(:password, with: '12345')
         click_button("Submit")
 
-        visit user_path(user)
+        visit "/dashboard"
 
         expect(page).to have_content("Amanda's Dashboard")
         expect(page).to have_button("Discover Movies")

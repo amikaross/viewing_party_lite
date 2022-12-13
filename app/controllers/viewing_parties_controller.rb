@@ -17,7 +17,7 @@ class ViewingPartiesController < ApplicationController
       params[:invitees].each do |invitee|
         UserViewingParty.create(user_id: invitee, viewing_party: party, status: 'Invited')
       end
-      redirect_to user_path(user)
+      redirect_to "/dashboard"
     else
       flash[:alert] = "Error: #{error_message(party.errors)}"
       redirect_to "/users/#{user.id}/movies/#{params[:movie_id]}/viewing_parties/new"

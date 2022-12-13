@@ -21,7 +21,7 @@ RSpec.describe 'login page', type: :feature do
     fill_in(:password, with: "12345")
     click_button("Submit")
 
-    expect(current_path).to eq(user_path(user))
+    expect(current_path).to eq("/dashboard")
     expect(page).to have_content("Amanda's Dashboard")  
   end
 
