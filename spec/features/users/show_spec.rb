@@ -17,7 +17,7 @@ RSpec.describe "the User Show page aka the user's dashboard" do
   end
 
   describe "As a logged in user" do 
-    describe "when a user visits '/users/:id' where id is a valid user id" do 
+    describe "when I visit '/users/:id' where id is a valid user id" do 
       it "shows '<user name>'s Dashboard', a Discover Movies button, and a list of that user's viewing parties", :vcr do 
         user = User.create!(name: 'Amanda', email: 'amanda@turing.edu', password: "12345", password_confirmation: "12345")
         user_2 = User.create!(name: "James", email: "james@turing.edu", password: "12345", password_confirmation: "12345")

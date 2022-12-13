@@ -4,6 +4,12 @@ RSpec.describe 'New viewing party page' do
   describe 'as a user when I visit the movie show page I can click a button to create new party' do
     it 'it take me to "/users/:user_id/movies/:movie_id/viewing_parties/new"', :vcr do
       user = User.create!(name: 'Amanda', email: 'amanda@turing.edu', password: "12345", password_confirmation: "12345")
+
+      visit '/login'
+
+      fill_in(:email, with: 'amanda@turing.edu')
+      fill_in(:password, with: '12345')
+      click_button("Submit")
       
       visit user_movie_path(user, 128)
 
@@ -16,6 +22,12 @@ RSpec.describe 'New viewing party page' do
   it 'has a button to take the user back to the discover page', :vcr do
     user = User.create!(name: 'Amanda', email: 'amanda@turing.edu', password: "12345", password_confirmation: "12345")
 
+    visit '/login'
+
+    fill_in(:email, with: 'amanda@turing.edu')
+    fill_in(:password, with: '12345')
+    click_button("Submit")
+
     visit user_movie_path(user, 128)
 
     click_button('Create Viewing Party For Princess Mononoke')
@@ -27,6 +39,12 @@ RSpec.describe 'New viewing party page' do
     user = User.create!(name: 'Amanda', email: 'amanda@turing.edu', password: "12345", password_confirmation: "12345")
     user2 = User.create!(name: 'Annie', email: 'annie@turing.edu', password: "12345", password_confirmation: "12345")
     user3 = User.create!(name: 'James', email: 'james@turing.edu', password: "12345", password_confirmation: "12345")
+
+    visit '/login'
+
+    fill_in(:email, with: 'amanda@turing.edu')
+    fill_in(:password, with: '12345')
+    click_button("Submit")
 
     visit "/users/#{user.id}/movies/128/viewing_parties/new"
 
@@ -42,6 +60,12 @@ RSpec.describe 'New viewing party page' do
     user = User.create!(name: 'Amanda', email: 'amanda@turing.edu', password: "12345", password_confirmation: "12345")
     user2 = User.create!(name: 'Annie', email: 'annie@turing.edu', password: "12345", password_confirmation: "12345")
     user3 = User.create!(name: 'James', email: 'james@turing.edu', password: "12345", password_confirmation: "12345")
+
+    visit '/login'
+
+    fill_in(:email, with: 'amanda@turing.edu')
+    fill_in(:password, with: '12345')
+    click_button("Submit")
 
     visit "/users/#{user.id}/movies/128/viewing_parties/new"
 
@@ -72,6 +96,12 @@ RSpec.describe 'New viewing party page' do
     user2 = User.create!(name: 'Annie', email: 'annie@turing.edu', password: "12345", password_confirmation: "12345")
     user3 = User.create!(name: 'James', email: 'james@turing.edu', password: "12345", password_confirmation: "12345")
 
+    visit '/login'
+
+    fill_in(:email, with: 'amanda@turing.edu')
+    fill_in(:password, with: '12345')
+    click_button("Submit")
+
     visit "/users/#{user.id}/movies/128/viewing_parties/new"
 
     fill_in('duration', with: '')
@@ -86,10 +116,17 @@ RSpec.describe 'New viewing party page' do
       expect(page).to have_content("Error: Duration can't be blank")
     end
   end
+
   it 'reloads the page if any field left blank', :vcr do
     user = User.create!(name: 'Amanda', email: 'amanda@turing.edu', password: "12345", password_confirmation: "12345")
     user2 = User.create!(name: 'Annie', email: 'annie@turing.edu', password: "12345", password_confirmation: "12345")
     user3 = User.create!(name: 'James', email: 'james@turing.edu', password: "12345", password_confirmation: "12345")
+
+    visit '/login'
+
+    fill_in(:email, with: 'amanda@turing.edu')
+    fill_in(:password, with: '12345')
+    click_button("Submit")
 
     visit "/users/#{user.id}/movies/128/viewing_parties/new"
 
@@ -100,10 +137,17 @@ RSpec.describe 'New viewing party page' do
       expect(page).to have_content("Error: Date can't be blank, Start time can't be blank")
     end
   end
+
   it 'reloads the page if any duration is not an integer', :vcr do
     user = User.create!(name: 'Amanda', email: 'amanda@turing.edu', password: "12345", password_confirmation: "12345")
     user2 = User.create!(name: 'Annie', email: 'annie@turing.edu', password: "12345", password_confirmation: "12345")
     user3 = User.create!(name: 'James', email: 'james@turing.edu', password: "12345", password_confirmation: "12345")
+
+    visit '/login'
+
+    fill_in(:email, with: 'amanda@turing.edu')
+    fill_in(:password, with: '12345')
+    click_button("Submit")
 
     visit "/users/#{user.id}/movies/128/viewing_parties/new"
 
@@ -119,10 +163,17 @@ RSpec.describe 'New viewing party page' do
       expect(page).to have_content('Error: Duration is not a number')
     end
   end
+
   it 'reloads the page if durations is less than run_time', :vcr do
     user = User.create!(name: 'Amanda', email: 'amanda@turing.edu', password: "12345", password_confirmation: "12345")
     user2 = User.create!(name: 'Annie', email: 'annie@turing.edu', password: "12345", password_confirmation: "12345")
     user3 = User.create!(name: 'James', email: 'james@turing.edu', password: "12345", password_confirmation: "12345")
+
+    visit '/login'
+
+    fill_in(:email, with: 'amanda@turing.edu')
+    fill_in(:password, with: '12345')
+    click_button("Submit")
 
     visit "/users/#{user.id}/movies/128/viewing_parties/new"
 
