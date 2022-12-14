@@ -1,4 +1,4 @@
-<% if session[:user_id] %>
+<% if current_user %>
   <%= link_to "Log Out", "/logout" %>
 
   <div id='users'>
