@@ -6,6 +6,7 @@ class MoviesSearchFacade
   end
 
   def top_rated_movies
+    require 'pry'; binding.pry
     service.top_rated_movies[:results].map do |data|
       Movie.new(data)
     end

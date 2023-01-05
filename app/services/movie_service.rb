@@ -4,6 +4,7 @@ class MovieService
   end
 
   def top_rated_movies
+    require 'pry'; binding.pry
     get_url("https://api.themoviedb.org/3/movie/top_rated?api_key=#{ENV['tmdb_key']}&language=en-US&page=1")
   end
 

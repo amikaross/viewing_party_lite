@@ -26,7 +26,7 @@
 <% end %>
 
 <div id='centered'>
-<%= button_to "Discover Page", "/users/#{@facade.user_id}/discover", method: :get %>
+<%= button_to "Discover Page", "/discover", method: :get %>
 <% if @facade.query_params == 'top 20rated' %>
   <h2>Movie Results</h2>
 <% else %>
